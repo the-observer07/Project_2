@@ -1,14 +1,12 @@
 import React from "react";
-import SearchBar from "./component/SearchBar";
+// import SearchBar from "./component/SearchBar";
+import Commodity from "./component/Commodity";
 
 const App = () => {
   return (
     <div>
       <h1>Aggregator</h1>
-      <Input />
-      <Input />
-      <Button />
-      <Button />
+      <Commodity />
     </div>
   );
 };

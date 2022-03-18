@@ -1,6 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
+@import "react-widgets/styles.css";
 
-* {
+@use "react-widgets/styles.css" with (
+  $components: (
+    "DropdownList",
+  )
+) * {
   box-sizing: border-box;
 }
 
