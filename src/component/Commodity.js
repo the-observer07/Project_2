@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import { DropdownList } from "react-widgets/cjs";
-import Dropdown from "react-bootstrap/Dropdown";
+import { DropdownList } from "react-widgets/cjs";
+// import { Dropdown } from "bootstrap";
 
 const commodityList = [
   "RICE",
