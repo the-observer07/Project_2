@@ -11,13 +11,12 @@ const Crypto = () => {
 
   // ForexAPI
 
-  const apiQuery = `https://api.coingecko.com/api/v3/simple/price?ids=${token}&vs_currencies=${otherToken}`;
-  const apiTicker = ``;
+  const cryptoAPIQuery = `https://api.coingecko.com/api/v3/simple/price?ids=${token}&vs_currencies=${otherToken}`;
 
   const makeApiCall = async () => {
-    //   const res = await fetch(forexAPI);
-    //   const rawData = await res.json();
-    //   // console.log(rawData);
+    const res = await fetch(cryptoAPIQuery);
+    const rawData = await res.json();
+    // console.log(rawData);
     //   const rawDataArray = [rawData];
     //   // console.log(rawDataArray);
     //   const sortForex = forexList.map((chicken) => {

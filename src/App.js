@@ -3,16 +3,20 @@ import React from "react";
 import Commodity from "./component/Commodity";
 import Forex from "./component/Forex";
 import Crypto from "./component/Crypto";
-import CryptoTicker from "./component/CryptoTicker";
+// import CryptoTicker from "./component/CryptoTicker";
+import TokenList from "./component/TokenList";
+import TokenListApiData from "./component/TokenListApiData";
 
 const App = () => {
   return (
     <div>
-      <CryptoTicker />
+      {/* <CryptoTicker /> */}
       <h1>Aggregator</h1>
       <Commodity />
       <Forex />
-      <Crypto />
+      {/* <Crypto /> */}
+      {/* <TokenList /> */}
+      <TokenListApiData />
     </div>
   );
 };
