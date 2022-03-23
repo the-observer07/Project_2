@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { DropdownList } from "react-widgets/cjs";
-import tokenList from "./TokenListApiData";
-import AggregateInput from "./AggregateInput";
+// import { DropdownList } from "react-widgets/cjs";
+// import tokenList from "./TokenListApiData";
+import TokenList from "./TokenList";
+// import AggregateInput from "./AggregateInput";
 
 const Crypto = (props) => {
   // console.log(props.aggregatedSearch);
@@ -28,13 +29,13 @@ const Crypto = (props) => {
     return namesArray.push(chicken.name);
   });
 
-  const handleSearchFilter = (event) => {
+  const handleSearchFilter = () => {
     // setQuery(event);
-    const searchWord = event;
+    const searchWord = props.searchWord;
     // console.log(searchWord);
-    const newFilter = Object.keys(tokenList).reduce((result, key) => {
-      if (tokenList[key].name.includes(searchWord)) {
-        result = tokenList[key].id;
+    const newFilter = Object.keys(TokenList).reduce((result, key) => {
+      if (TokenList[key].name.includes(searchWord)) {
+        result = TokenList[key].id;
         // console.log(tokenList[key].id);
       }
       return result;
@@ -101,11 +102,12 @@ const Crypto = (props) => {
   return (
     <div>
       {/* <br />
-      <h2>Select a token</h2>
-      <DropdownList data={namesArray} onChange={handleSearchFilter} />
+    <h2>Select a token</h2>
+    <DropdownList data={namesArray} onChange={handleSearchFilter} /> */}
       <button onClick={makeApiCall}>Submit</button>
-      {/* <Result type={type} /> */}
-      {/* <div>Token price : ${extractedData}</div> */}
+      {/* <Result type={type} />
+    <div>Token price : ${extractedData}</div> */}
+      This is crypto component
     </div>
   );
 };

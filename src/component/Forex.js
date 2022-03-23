@@ -234,7 +234,7 @@ const Forex = (props) => {
 
   const handleSearchFilter = () => {
     // setQuery(event);
-    const searchWord = props.aggregatedSearch;
+    const searchWord = props.searchWord;
     // console.log(searchWord);
     const newFilter = Object.keys(forexList).reduce((result, key) => {
       if (forexList[key].name.includes(searchWord)) {
@@ -276,7 +276,13 @@ const Forex = (props) => {
 
   const forexArray = forex;
 
-  return <div></div>;
+  return (
+    <div>
+      This is forex component
+      <button onClick={makeApiCall}>Submit</button>
+    </div>
+  );
+
   // <div>
   //   <h2>Select a currency</h2>
   //   <DropdownList

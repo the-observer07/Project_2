@@ -28,14 +28,15 @@ const commodityList = [
 const Commodity = (props) => {
   // console.log(props.aggregatedSearch);
 
-  const [commodity, setCommodity] = useState("");
-  const [query, setQuery] = useState([]);
+  // const [commodity, setCommodity] = useState("");
+  // const [query, setQuery] = useState([]);
   const [type, setType] = useState([]);
 
   // CommodityAPI
 
-  const commodityAPI = `https://www.commodities-api.com/api/latest?access_key=jhvo01w5j98zhcbi517u32j1mc14wgkh1zwzfp8rx4x3bdzujvnvx6gzody4&base=${query}&symbols=USD`;
+  const commodityAPI = `https://www.commodities-api.com/api/latest?access_key=jhvo01w5j98zhcbi517u32j1mc14wgkh1zwzfp8rx4x3bdzujvnvx6gzody4&base=${props.searchWord}&symbols=USD`;
 
+  console.log(commodityAPI);
   //CryptoAPI
 
   // const cryptoAPI = ``;
@@ -71,10 +72,10 @@ const Commodity = (props) => {
   };
   // console.log(type);
 
-  const handleSelectionChange = (event) => {
-    setCommodity(event.target.value);
-    // console.log(event);
-  };
+  // const handleSelectionChange = (event) => {
+  //   setCommodity(event.target.value);
+  //   // console.log(event);
+  // };
 
   return (
     <div>
@@ -83,9 +84,10 @@ const Commodity = (props) => {
         data={commodityList}
         // forex={forexList}
         onChange={(nextValue) => setQuery(nextValue)}
-      />
+      /> */}
       <button onClick={makeApiCall}>Submit</button>
       {/* <p>{query}</p> */}
+      This is commodity component
       <Result type={type} />
       {/* is propsing down to child (Result component) */}
     </div>

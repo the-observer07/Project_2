@@ -20,6 +20,7 @@ const AggregateInput = () => {
 
   const [id, setId] = useState([]);
   const [aggregatedSearch, setAggregatedSearch] = useState("");
+  const [content, setContent] = useState("");
   //   console.log(id);
 
   const aggregatedArray = [];
@@ -49,21 +50,35 @@ const AggregateInput = () => {
   //       return result;
   //     }, "");
   //     setFilterData(newFilter);
-
+  //   let content = "hello";
   const handleSearchAggregate = (event) => {
     const searchWord = event;
-    setAggregatedSearch(searchWord);
+
+    // setAggregatedSearch(searchWord);
+    if (commodityList.indexOf(searchWord) != -1) {
+      //commodity search
+      console.log(commodityList.indexOf(searchWord));
+      setContent(<Commodity searchWord={searchWord} />);
+    } else if (
+      forexList.find((element) => element.name === searchWord) != undefined
+    ) {
+      setContent(<Forex searchWord={searchWord} />);
+      // forex search
+    } else {
+      setContent(<Crypto searchWord={searchWord} />);
+    }
   };
   //   console.log(aggregatedSearch);
+
+  console.log(content);
 
   return (
     <div>
       <DropdownList data={aggregatedArray} onChange={handleSearchAggregate} />
-      <button>Submit</button>
+      {/* <button>Submit</button> */}
       <TokenList id={id} setId={setId} />
-      <Crypto onClick={handleSearchFilter} />
-      <Forex />
-      <Commodity />
+
+      {content}
     </div>
   );
 };
