@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 // import { DropdownList } from "react-widgets/cjs";
 // import tokenList from "./TokenListApiData";
 import TokenList from "./TokenList";
+import tokenList from "./TokenListApiData";
 // import AggregateInput from "./AggregateInput";
 
 const Crypto = (props) => {
-  // console.log(props.aggregatedSearch);
+  // console.log(tokenList);
 
   // console.log(props.token);
   // const [query, setQuery] = useState("");
@@ -25,24 +26,29 @@ const Crypto = (props) => {
   // const symbolArray = [];
   // console.log(namesArray);
 
-  const displayName = tokenList.map((chicken) => {
-    return namesArray.push(chicken.name);
-  });
+  // const displayName = tokenList.map((chicken) => {
+  //   return namesArray.push(chicken.name);
+  // });
 
-  const handleSearchFilter = () => {
-    // setQuery(event);
+  useEffect(() => {
+    getResults();
+  }, [props.cryptoState]);
+
+  const getResults = () => {
     const searchWord = props.searchWord;
     // console.log(searchWord);
-    const newFilter = Object.keys(TokenList).reduce((result, key) => {
-      if (TokenList[key].name.includes(searchWord)) {
-        result = TokenList[key].id;
+    const newFilter = Object.keys(tokenList).reduce((result, key) => {
+      if (tokenList[key].name.match(searchWord)) {
+        result = tokenList[key].id;
         // console.log(tokenList[key].id);
       }
+      // props.setCryptoState(false);
       return result;
     }, "");
     setFilterData(newFilter);
   };
-
+  console.log(filterData);
+  console.log(cryptoAPIQuery);
   // setName = displayName;
   // console.log(name);
 
@@ -104,10 +110,10 @@ const Crypto = (props) => {
       {/* <br />
     <h2>Select a token</h2>
     <DropdownList data={namesArray} onChange={handleSearchFilter} /> */}
+      <br />
       <button onClick={makeApiCall}>Submit</button>
-      {/* <Result type={type} />
-    <div>Token price : ${extractedData}</div> */}
-      This is crypto component
+      {/* <Result type={type} /> */}
+      <div>Token price : ${extractedData}</div>
     </div>
   );
 };

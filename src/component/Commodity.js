@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DropdownList } from "react-widgets/cjs";
-import Result from "./Result";
+// import Result from "./Result";
 import AggregateInput from "./AggregateInput";
 
 //============================================================================================================================================================================================
@@ -77,6 +77,17 @@ const Commodity = (props) => {
   //   // console.log(event);
   // };
 
+  const mappedData = type.map((element, index) => {
+    return (
+      <>
+        <div key={index}>
+          USD: {element.price.USD} {element.unit}
+          <br />
+        </div>
+      </>
+    );
+  });
+
   return (
     <div>
       {/* <h2>Select a commodity</h2>
@@ -85,10 +96,10 @@ const Commodity = (props) => {
         // forex={forexList}
         onChange={(nextValue) => setQuery(nextValue)}
       /> */}
+      <br />
       <button onClick={makeApiCall}>Submit</button>
       {/* <p>{query}</p> */}
-      This is commodity component
-      <Result type={type} />
+      {mappedData}
       {/* is propsing down to child (Result component) */}
     </div>
   );

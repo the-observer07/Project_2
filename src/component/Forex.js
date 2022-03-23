@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DropdownList } from "react-widgets/cjs";
-import Result from "./Result";
+// import Result from "./Result";
 import AggregateInput from "./AggregateInput";
 
 const forexList = [
@@ -176,17 +176,18 @@ const forexList = [
 const Forex = (props) => {
   const [forex, setForex] = useState("");
   const [forexType, setForexType] = useState([]);
-  const [query, setQuery] = useState("");
+  // const [query, setQuery] = useState("");
   // const [type, setType] = useState("");
   // const [currency, setCurrency] = useState("");
   const [filterData, setFilterData] = useState("");
 
-  console.log(props.aggregatedSearch);
+  // console.log(props.aggregatedSearch);
   // ForexAPI
 
   const forexAPI = `http://apilayer.net/api/live?access_key=b7bf0fb87af0b9ef3ff79b78a423f76c&currencies=${filterData}&source=USD&format=1`;
 
   const sortForex = () => {
+    // console.log(props.searchWord);
     const sortByName = forexList.map((chicken) => {
       return {
         name: chicken.name,
@@ -204,7 +205,7 @@ const Forex = (props) => {
     const res = await fetch(forexAPI);
     const rawData = await res.json();
 
-    // console.log(rawData);
+    console.log(rawData);
 
     // const rawDataArray = [rawData];
 
@@ -227,29 +228,45 @@ const Forex = (props) => {
     return emptyArray.push(chicken.name);
   });
 
+  console.log(forexAPI);
+
   // const displayNameArray = [displayName];
   // console.log(emptyArray);
 
   // console.log(query); // state with selected currency
 
-  const handleSearchFilter = () => {
-    // setQuery(event);
+  // setQuery(event);
+  // useEffect(() => {
+  //   document.addEventListener("trigger_child", () => doThing());
+
+  //   return () => {
+  //     document.removeEventListener("trigger_child", doThing);
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    getResults();
+  }, [props.forexState]);
+
+  const getResults = () => {
     const searchWord = props.searchWord;
     // console.log(searchWord);
     const newFilter = Object.keys(forexList).reduce((result, key) => {
       if (forexList[key].name.includes(searchWord)) {
         result = forexList[key].id;
       }
+      // props.setForexState(false);
       return result;
     }, "");
     setFilterData(newFilter);
-
-    console.log(filterData);
-
-    // const stringData = filterData.map((element, index) => {
-    //   return `${element}`;
-    // }, "");
   };
+
+  console.log(filterData);
+
+  // const stringData = filterData.map((element, index) => {
+  //   return `${element}`;
+  // }, "");
+  // };
   // console.log(filterData);
 
   // console.log(stringData);
@@ -278,8 +295,17 @@ const Forex = (props) => {
 
   return (
     <div>
-      This is forex component
+      <br />
       <button onClick={makeApiCall}>Submit</button>
+      {Object.keys(forexArray).map((key, i) => (
+        <p key={i}>
+          {/* <span>1USD:{key}</span> */}
+          <span>
+            1 USD : {forexArray[key]}
+            {filterData}
+          </span>
+        </p>
+      ))}
     </div>
   );
 
@@ -295,17 +321,17 @@ const Forex = (props) => {
   //   <button onClick={makeApiCall}>Submit</button>
   //   {/* <Result forex={forex} /> */}
   //   {/* <div>{mappedForexData}</div>; */}
-  //   <div>
-  //     {Object.keys(forexArray).map((key, i) => (
-  //       <p key={i}>
-  //         {/* <span>1USD:{key}</span> */}
-  //         <span>
-  //           1 USD : {forexArray[key]}
-  //           {filterData}
-  //         </span>
-  //       </p>
-  //     ))}
-  //   </div>
+  // <div>
+  //   {Object.keys(forexArray).map((key, i) => (
+  //     <p key={i}>
+  //       {/* <span>1USD:{key}</span> */}
+  //       <span>
+  //         1 USD : {forexArray[key]}
+  //         {filterData}
+  //       </span>
+  //     </p>
+  //   ))}
+  // </div>;
   // </div>
   // );
 };

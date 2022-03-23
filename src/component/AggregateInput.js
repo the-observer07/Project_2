@@ -7,7 +7,7 @@ import Crypto from "./Crypto";
 import Forex from "./Forex";
 import Commodity from "./Commodity";
 
-const AggregateInput = () => {
+const AggregateInput = (props) => {
   //   console.log(commodityList);
 
   //   console.log(forexList);
@@ -21,6 +21,8 @@ const AggregateInput = () => {
   const [id, setId] = useState([]);
   const [aggregatedSearch, setAggregatedSearch] = useState("");
   const [content, setContent] = useState("");
+  const [forexState, setForexState] = useState(false);
+  const [cryptoState, setCryptoState] = useState(false);
   //   console.log(id);
 
   const aggregatedArray = [];
@@ -57,27 +59,40 @@ const AggregateInput = () => {
     // setAggregatedSearch(searchWord);
     if (commodityList.indexOf(searchWord) != -1) {
       //commodity search
-      console.log(commodityList.indexOf(searchWord));
+      //   console.log(commodityList.indexOf(searchWord));
       setContent(<Commodity searchWord={searchWord} />);
     } else if (
       forexList.find((element) => element.name === searchWord) != undefined
     ) {
-      setContent(<Forex searchWord={searchWord} />);
+      setContent(
+        <Forex
+          searchWord={searchWord}
+          forexState={forexState}
+          setForexState={setForexState}
+        />
+      );
+      //   setState(true);
       // forex search
     } else {
-      setContent(<Crypto searchWord={searchWord} />);
+      setContent(
+        <Crypto
+          searchWord={searchWord}
+          cryptoState={cryptoState}
+          setCryptoState={setCryptoState}
+        />
+      );
     }
   };
   //   console.log(aggregatedSearch);
 
-  console.log(content);
+  //   console.log(content);
 
   return (
     <div>
       <DropdownList data={aggregatedArray} onChange={handleSearchAggregate} />
       {/* <button>Submit</button> */}
       <TokenList id={id} setId={setId} />
-
+      {/* <Forex  /> */}
       {content}
     </div>
   );
