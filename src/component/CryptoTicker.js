@@ -5,10 +5,13 @@ import Bottleneck from "bottleneck";
 import { type } from "@testing-library/user-event/dist/type";
 
 const CryptoTicker = () => {
-  const [data, setData] = useState([]);
+  const [cryptoData, setCryptoData] = useState([]);
+  const [newsData, setNewsData] = useState("");
   const [type, setType] = useState("");
 
   const cryptoApiTicker = `https://api.coingecko.com/api/v3/exchanges/binance/tickers`;
+  const financialNewsTicker =
+    "https://api.marketaux.com/v1/news/all?symbols=TSLA,AMZN,MSFT&filter_entities=true&language=en&api_token=HtQPxNVoj5bYyudPypD08TDxD7MdNbMkUB69DXJe";
 
   const limiter = new Bottleneck({
     reservoir: 100, // initial value
@@ -24,20 +27,17 @@ const CryptoTicker = () => {
 
   useEffect(() => {
     throttledApiCall();
-    filterData();
+    throttledNewsApiCall();
+    // filterData();
   }, []);
 
-  const fetchAPI = async () => {
-    const res = await fetch(cryptoApiTicker);
+  const fetchCryptoAPI = async () => {
+    const res = await get(cryptoApiTicker);
     // console.log(res);
     const rawData = await res.json();
     // console.log(rawData);
-    setData(rawData.tickers);
-  };
-  // console.log(data);
-
-  const filterData = () => {
-    const filteredData = data.map((element, index) => {
+    setCryptoData();
+    const filteredData = rawData.tickers.map((element, index) => {
       return (
         <div key={index}>
           symbol: {element.base}, price: {element.last}, priceBTC:{" "}
@@ -49,9 +49,19 @@ const CryptoTicker = () => {
     // setType(filteredData);
     // console.log(filteredData);
   };
-  // console.log(type);
 
-  const throttledApiCall = limiter.wrap(fetchAPI);
+  console.log(data);
+
+  const throttledApiCall = limiter.wrap(fetchCryptoAPI);
+
+  const fetchFinancialNewsAPI = async () => {
+    const res = await get(financialNewsTicker);
+    const rawData = await res.json();
+    console.log(rawData);
+  };
+  console.log(data);
+
+  const throttledNewsApiCall = limiter.wrap(fetchFinancialNewsAPI);
 
   // const res = await fetch(cryptoApiTicker);
   // const rawData = await res.json();
@@ -127,6 +137,38 @@ const CryptoTicker = () => {
         />
         <FinancialTicker
           id="6"
+          change={false}
+          symbol="S&P 500"
+          lastPrice="3372.2"
+          percentage="0.38%"
+          currentPrice="12.9"
+        />
+        <FinancialTicker
+          id="7"
+          change={false}
+          symbol="S&P 500"
+          lastPrice="3372.2"
+          percentage="0.38%"
+          currentPrice="12.9"
+        />
+        <FinancialTicker
+          id="8"
+          change={false}
+          symbol="S&P 500"
+          lastPrice="3372.2"
+          percentage="0.38%"
+          currentPrice="12.9"
+        />
+        <FinancialTicker
+          id="9"
+          change={false}
+          symbol="S&P 500"
+          lastPrice="3372.2"
+          percentage="0.38%"
+          currentPrice="12.9"
+        />
+        <FinancialTicker
+          id="10"
           change={false}
           symbol="S&P 500"
           lastPrice="3372.2"

@@ -249,7 +249,7 @@ const Forex = (props) => {
   }, [props.forexState]);
 
   const getResults = () => {
-    const searchWord = props.searchWord;
+    const searchWord = props.forexSearchWord;
     // console.log(searchWord);
     const newFilter = Object.keys(forexList).reduce((result, key) => {
       if (forexList[key].name.includes(searchWord)) {

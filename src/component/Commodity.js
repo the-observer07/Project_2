@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { DropdownList } from "react-widgets/cjs";
+// import { DropdownList } from "react-widgets/cjs";
 // import Result from "./Result";
-import AggregateInput from "./AggregateInput";
+// import AggregateInput from "./AggregateInput";
 
 //============================================================================================================================================================================================
 
@@ -26,42 +26,15 @@ const commodityList = [
 ];
 
 const Commodity = (props) => {
-  // console.log(props.aggregatedSearch);
-
-  // const [commodity, setCommodity] = useState("");
-  // const [query, setQuery] = useState([]);
   const [type, setType] = useState([]);
 
-  // CommodityAPI
-
-  const commodityAPI = `https://www.commodities-api.com/api/latest?access_key=jhvo01w5j98zhcbi517u32j1mc14wgkh1zwzfp8rx4x3bdzujvnvx6gzody4&base=${props.searchWord}&symbols=USD`;
-
-  console.log(commodityAPI);
-  //CryptoAPI
-
-  // const cryptoAPI = ``;
-
-  //Need to consolidate API to decide which to call (if this then that)
-  //Maybe using state, so if state change then select that one?
-
-  //map the forex array to sort names
-
-  // thinking maybe i can consolidate the api keywords under consolidatedAPI so that i can do an if, else
-
-  // const consolidatedAPI = ``;
-
-  // console.log(commodityAPI);
+  const commodityAPI = `https://www.commodities-api.com/api/latest?access_key=jhvo01w5j98zhcbi517u32j1mc14wgkh1zwzfp8rx4x3bdzujvnvx6gzody4&base=${props.commoditySearchWord}&symbols=USD`;
 
   const makeApiCall = async () => {
     const res = await fetch(commodityAPI);
     const rawData = await res.json();
 
-    // console.log(rawData);
-
     const rawDataArray = [rawData];
-
-    // console.log(rawDataArray);
-
     const filteredData = rawDataArray.map((duck) => {
       return {
         price: duck.data.rates,
@@ -70,18 +43,12 @@ const Commodity = (props) => {
     });
     setType(filteredData);
   };
-  // console.log(type);
-
-  // const handleSelectionChange = (event) => {
-  //   setCommodity(event.target.value);
-  //   // console.log(event);
-  // };
 
   const mappedData = type.map((element, index) => {
     return (
       <>
         <div key={index}>
-          USD: {element.price.USD} {element.unit}
+          USD : ${element.price.USD} {element.unit}
           <br />
         </div>
       </>
@@ -90,15 +57,9 @@ const Commodity = (props) => {
 
   return (
     <div>
-      {/* <h2>Select a commodity</h2>
-      <DropdownList
-        data={commodityList}
-        // forex={forexList}
-        onChange={(nextValue) => setQuery(nextValue)}
-      /> */}
       <br />
       <button onClick={makeApiCall}>Submit</button>
-      {/* <p>{query}</p> */}
+      <br />
       {mappedData}
       {/* is propsing down to child (Result component) */}
     </div>

@@ -39,34 +39,17 @@ const AggregateInput = (props) => {
     return aggregatedArray.push(chicken);
   });
 
-  //   console.log(aggregatedArray);
-
-  //   const handleSearchFilter = (event) => {
-  //     // setQuery(event);
-  //     const searchWord = event;
-  //     // console.log(searchWord);
-  //     const newFilter = Object.keys(forexList).reduce((result, key) => {
-  //       if (forexList[key].name.includes(searchWord)) {
-  //         result = forexList[key].id;
-  //       }
-  //       return result;
-  //     }, "");
-  //     setFilterData(newFilter);
-  //   let content = "hello";
   const handleSearchAggregate = (event) => {
     const searchWord = event;
 
-    // setAggregatedSearch(searchWord);
     if (commodityList.indexOf(searchWord) != -1) {
-      //commodity search
-      //   console.log(commodityList.indexOf(searchWord));
-      setContent(<Commodity searchWord={searchWord} />);
+      setContent(<Commodity commoditySearchWord={searchWord} />);
     } else if (
       forexList.find((element) => element.name === searchWord) != undefined
     ) {
       setContent(
         <Forex
-          searchWord={searchWord}
+          forexSearchWord={searchWord}
           forexState={forexState}
           setForexState={setForexState}
         />
