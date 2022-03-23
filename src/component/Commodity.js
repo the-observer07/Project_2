@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Button, Container, Row, Col } from "react-bootstrap";
+
 // import { DropdownList } from "react-widgets/cjs";
 // import Result from "./Result";
 // import AggregateInput from "./AggregateInput";
@@ -57,11 +59,18 @@ const Commodity = (props) => {
 
   return (
     <div>
-      <br />
-      <button onClick={makeApiCall}>Submit</button>
-      <br />
-      {mappedData}
-      {/* is propsing down to child (Result component) */}
+      <Container>
+        <Col>
+          <br />
+          <Button variant="dark" onClick={makeApiCall}>
+            Submit
+          </Button>
+
+          <br />
+          {mappedData}
+          {/* is propsing down to child (Result component) */}
+        </Col>
+      </Container>
     </div>
   );
 };

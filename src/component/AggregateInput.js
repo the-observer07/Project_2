@@ -6,6 +6,7 @@ import TokenList from "./TokenList";
 import Crypto from "./Crypto";
 import Forex from "./Forex";
 import Commodity from "./Commodity";
+import { Button, Container, Row, Col } from "react-bootstrap";
 
 const AggregateInput = (props) => {
   //   console.log(commodityList);
@@ -72,11 +73,19 @@ const AggregateInput = (props) => {
 
   return (
     <div>
-      <DropdownList data={aggregatedArray} onChange={handleSearchAggregate} />
-      {/* <button>Submit</button> */}
-      <TokenList id={id} setId={setId} />
-      {/* <Forex  /> */}
-      {content}
+      <Container>
+        <Col>
+          <h1>Aggreator</h1>
+          <DropdownList
+            data={aggregatedArray}
+            onChange={handleSearchAggregate}
+          />
+          {/* <button>Submit</button> */}
+          <TokenList id={id} setId={setId} />
+          {/* <Forex  /> */}
+          {content}
+        </Col>
+      </Container>
     </div>
   );
 };

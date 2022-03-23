@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 // import tokenList from "./TokenListApiData";
 import TokenList from "./TokenList";
 import tokenList from "./TokenListApiData";
+import { Button, Container, Row, Col } from "react-bootstrap";
 // import AggregateInput from "./AggregateInput";
 
 const Crypto = (props) => {
@@ -107,13 +108,20 @@ const Crypto = (props) => {
 
   return (
     <div>
+      <br />
+      <br />
+      <div>Token price : ${extractedData}</div>
+      <br />
+
       {/* <br />
     <h2>Select a token</h2>
     <DropdownList data={namesArray} onChange={handleSearchFilter} /> */}
       <br />
-      <button onClick={makeApiCall}>Submit</button>
+      <Button variant="dark" onClick={makeApiCall}>
+        Submit
+      </Button>
+      <br />
       {/* <Result type={type} /> */}
-      <div>Token price : ${extractedData}</div>
     </div>
   );
 };

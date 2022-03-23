@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DropdownList } from "react-widgets/cjs";
 // import Result from "./Result";
 import AggregateInput from "./AggregateInput";
+import { Button, Container, Row, Col } from "react-bootstrap";
 
 const forexList = [
   { id: "AED", name: "United Arab Emirates Dirham" },
@@ -296,7 +297,9 @@ const Forex = (props) => {
   return (
     <div>
       <br />
-      <button onClick={makeApiCall}>Submit</button>
+      <Button variant="dark" size="lg" onClick={makeApiCall}>
+        Submit
+      </Button>{" "}
       {Object.keys(forexArray).map((key, i) => (
         <p key={i}>
           {/* <span>1USD:{key}</span> */}
