@@ -12,6 +12,8 @@ const App = () => {
   return (
     <div>
       <CryptoTicker />
+      <br />
+      <br />
       <h1>Aggregator</h1>
       <Commodity />
       <Forex />

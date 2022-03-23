@@ -84,8 +84,55 @@ const CryptoTicker = () => {
 
   return (
     <div>
-      <Ticker offset="run-in" speed={10}>
-        {filterData()}
+      <Ticker>
+        <FinancialTicker
+          id="1"
+          change={true}
+          symbol="S&P 500"
+          lastPrice="3372.2"
+          percentage="0.38%"
+          currentPrice="12.9"
+        />
+        <FinancialTicker
+          id="2"
+          change={true}
+          symbol="AAPL"
+          lastPrice="3372.2"
+          percentage="0.38%"
+          currentPrice="12.9"
+        />
+        <FinancialTicker
+          id="3"
+          change={true}
+          symbol="GOOG"
+          lastPrice="3372.2"
+          percentage="0.38%"
+          currentPrice="12.9"
+        />
+        <FinancialTicker
+          id="4"
+          change={false}
+          symbol="S&P 500"
+          lastPrice="3372.2"
+          percentage="0.38%"
+          currentPrice="12.9"
+        />
+        <FinancialTicker
+          id="5"
+          change={false}
+          symbol="S&P 500"
+          lastPrice="3372.2"
+          percentage="0.38%"
+          currentPrice="12.9"
+        />
+        <FinancialTicker
+          id="6"
+          change={false}
+          symbol="S&P 500"
+          lastPrice="3372.2"
+          percentage="0.38%"
+          currentPrice="12.9"
+        />
       </Ticker>
     </div>
   );

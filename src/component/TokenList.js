@@ -8,7 +8,7 @@ const TokenList = () => {
   const [state, setState] = useState("");
   const [list, setList] = useState("");
   const [data, setData] = useState([]);
-  const [type, setType] = useState("");
+  const [type, setType] = useState([]);
 
   const tickerData = "https://api.coingecko.com/api/v3/exchanges/binance";
 
@@ -49,7 +49,11 @@ const TokenList = () => {
     setType(filteredData);
   };
 
-  // console.log(type);
+  const cryptoIdArray = [];
+  const displayId = type.map((chicken) => {
+    return cryptoIdArray.push(chicken.id);
+  });
+  // console.log(idArray);
 
   return <div></div>;
 };
