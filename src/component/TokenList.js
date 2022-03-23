@@ -7,7 +7,8 @@ const TokenList = () => {
   const [totalReactPackages, setTotalReactPackages] = useState(null);
   const [state, setState] = useState("");
   const [list, setList] = useState("");
-  const [data, setData] = useState("");
+  const [data, setData] = useState([]);
+  const [type, setType] = useState("");
 
   const tickerData = "https://api.coingecko.com/api/v3/exchanges/binance";
 
@@ -28,12 +29,27 @@ const TokenList = () => {
   const makeApiCall = async () => {
     const res = await fetch(tickerData);
     const rawData = await res.json();
-    console.log(rawData.tickers);
-    setData(rawData);
+    // console.log(rawData.tickers);
+    setData(rawData.tickers);
   };
   // console.log(data);
 
   const throttledApiCall = limiter.wrap(makeApiCall);
+
+  useEffect(() => {
+    filterData();
+  }, []);
+  const filterData = () => {
+    const filteredData = data.map((duck) => {
+      return {
+        id: duck.base,
+        price: duck.last,
+      };
+    });
+    setType(filteredData);
+  };
+
+  // console.log(type);
 
   return <div></div>;
 };
