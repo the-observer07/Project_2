@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DropdownList } from "react-widgets/cjs";
 import Result from "./Result";
+import AggregateInput from "./AggregateInput";
 
 //============================================================================================================================================================================================
 
@@ -24,7 +25,9 @@ const commodityList = [
   "NG",
 ];
 
-const Commodity = () => {
+const Commodity = (props) => {
+  // console.log(props.aggregatedSearch);
+
   const [commodity, setCommodity] = useState("");
   const [query, setQuery] = useState([]);
   const [type, setType] = useState([]);
@@ -44,7 +47,7 @@ const Commodity = () => {
 
   // thinking maybe i can consolidate the api keywords under consolidatedAPI so that i can do an if, else
 
-  const consolidatedAPI = ``;
+  // const consolidatedAPI = ``;
 
   // console.log(commodityAPI);
 
@@ -75,7 +78,7 @@ const Commodity = () => {
 
   return (
     <div>
-      <h2>Select a commodity</h2>
+      {/* <h2>Select a commodity</h2>
       <DropdownList
         data={commodityList}
         // forex={forexList}

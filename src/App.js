@@ -7,6 +7,7 @@ import CryptoTicker from "./component/CryptoTicker";
 import TokenList from "./component/TokenList";
 // import TokenList from "./component/TokenList";
 // import TokenListApiData from "./component/TokenListApiData";
+import AggregateInput from "./component/AggregateInput";
 
 const App = () => {
   return (
@@ -15,11 +16,8 @@ const App = () => {
       <br />
       <br />
       <h1>Aggregator</h1>
-      <Commodity />
-      <Forex />
-      <Crypto />
-      {/* <TokenListApiData /> */}
-      <TokenList />
+
+      <AggregateInput />
     </div>
   );
 };

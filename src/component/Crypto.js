@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { DropdownList } from "react-widgets/cjs";
 import tokenList from "./TokenListApiData";
+import AggregateInput from "./AggregateInput";
 
 const Crypto = (props) => {
+  // console.log(props.aggregatedSearch);
+
   // console.log(props.token);
   // const [query, setQuery] = useState("");
   // const [type, setType] = useState("");
@@ -97,12 +100,12 @@ const Crypto = (props) => {
 
   return (
     <div>
-      <br />
+      {/* <br />
       <h2>Select a token</h2>
       <DropdownList data={namesArray} onChange={handleSearchFilter} />
       <button onClick={makeApiCall}>Submit</button>
       {/* <Result type={type} /> */}
-      <div>Token price : ${extractedData}</div>
+      {/* <div>Token price : ${extractedData}</div> */}
     </div>
   );
 };
