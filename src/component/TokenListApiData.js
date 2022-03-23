@@ -1,6 +1,3 @@
-import React from "react";
-
-const TokenListApiData = () => {
   const tokenList = [
     { id: "01coin", symbol: "zoc", name: "01coin" },
     {
@@ -17018,23 +17015,23 @@ const TokenListApiData = () => {
     { id: "zyx", symbol: "zyx", name: "ZYX" },
     { id: "zzz-finance-v2", symbol: "zzzv2", name: "zzz.finance v2" },
   ];
+  //   const [tokens, setTokens] = useState([]);
 
-  const mappedData = tokenList.map((element, index) => {
-    return (
-      <>
-        <div key={index}>
-          ID: {element.id}
-          <br />
-          Symbol: {element.symbol}
-          <br/>
-          Name: {element.name}
-        </div>
-      </>
-    );
-  });
-  return <div>{mappedData}</div>;
+  //   useEffect(() => {
+  //     sortTokenList();
+  //   }, []);
 
-  return <div></div>;
-};
+  //   const sortTokenList = () => {
+  //     const mappedData = tokenList.map((element, index) => {
+  //       return {
+  //         id: element.id,
+  //         symbol: element.symbol,
+  //         name: element.name,
+  //       };
+  //     });
+  //     setTokens(mappedData);
+  //   };
+  //   console.log(tokens);
 
-export default TokenListApiData;
+
+export default tokenList;

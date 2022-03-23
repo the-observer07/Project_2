@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Ticker, { FinancialTicker, NewsTicker } from "nice-react-ticker";
+import Ticker, { FinancialTicker } from "nice-react-ticker";
 // import Ticker from "react-ticker";
 import Bottleneck from "bottleneck";
+import { type } from "@testing-library/user-event/dist/type";
 
 const CryptoTicker = () => {
-  const { data, setData } = useState("");
+  const [data, setData] = useState([]);
+  const [type, setType] = useState("");
 
-  //   const cryptoApiTicker = `https://api.coingecko.com/api/v3/search/trending`;
+  const cryptoApiTicker = `https://api.coingecko.com/api/v3/exchanges/binance/tickers`;
 
   const limiter = new Bottleneck({
     reservoir: 100, // initial value
@@ -20,15 +22,44 @@ const CryptoTicker = () => {
 
   //   const result = await limiter.schedule(() => makeApiCall());
 
-  const res = await fetch(cryptoApiTicker);
-  const rawData = await res.json();
-  console.log(rawData);
-  setData = rawData;
+  useEffect(() => {
+    throttledApiCall();
+    filterData();
+  }, []);
+
+  const fetchAPI = async () => {
+    const res = await fetch(cryptoApiTicker);
+    // console.log(res);
+    const rawData = await res.json();
+    // console.log(rawData);
+    setData(rawData.tickers);
+  };
+  // console.log(data);
+
+  const filterData = () => {
+    const filteredData = data.map((element, index) => {
+      return (
+        <div key={index}>
+          symbol: {element.base}, price: {element.last}, priceBTC:{" "}
+          {element.converted_last.btc},
+        </div>
+      );
+    });
+    return filteredData;
+    // setType(filteredData);
+    // console.log(filteredData);
+  };
+  // console.log(type);
+
+  const throttledApiCall = limiter.wrap(fetchAPI);
+
+  // const res = await fetch(cryptoApiTicker);
+  // const rawData = await res.json();
+  // console.log(rawData);
+  // setData = rawData;
 
   //   const fet
   //   console.log(data);
-
-  //   const throttledApiCall = limiter.wrap(makeAPICall);
 
   //   const allThePromises = data.map((item) => {
   //     return throttledApiCall();
@@ -54,7 +85,7 @@ const CryptoTicker = () => {
   return (
     <div>
       <Ticker offset="run-in" speed={10}>
-        {() => <GetRatesFromAPI />}
+        {filterData()}
       </Ticker>
     </div>
   );

@@ -84,6 +84,7 @@ const Commodity = () => {
       <button onClick={makeApiCall}>Submit</button>
       {/* <p>{query}</p> */}
       <Result type={type} />
+      {/* is propsing down to child (Result component) */}
     </div>
   );
 };

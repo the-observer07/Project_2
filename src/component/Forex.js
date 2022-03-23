@@ -202,13 +202,13 @@ const Forex = () => {
     const res = await fetch(forexAPI);
     const rawData = await res.json();
 
-    console.log(rawData);
+    // console.log(rawData);
 
-    const rawDataArray = [rawData];
+    // const rawDataArray = [rawData];
 
-    console.log(rawData.quotes);
+    // console.log(rawData.quotes);
     setForex(rawData.quotes);
-    console.log(forex);
+    // console.log(forex);
 
     // const array = rawDataArray.map((duck) => {
     //   return {
