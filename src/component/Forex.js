@@ -176,15 +176,18 @@ const forexList = [
 ];
 
 const Forex = (props) => {
-  const [forex, setForex] = useState("");
+  const [forex, setForex] = useState("1");
   const [forexType, setForexType] = useState([]);
   const [filterData, setFilterData] = useState("");
-  const [numericalInput, setNumericalInput] = useState("");
-  const [secondaryInput, setSecondaryInput] = useState("");
-  const [secondaryAPIData, setSecondaryAPIData] = useState("");
+  const [numericalInput, setNumericalInput] = useState("1");
+  const [secondaryInput, setSecondaryInput] = useState("USD");
+  const [secondaryAPIData, setSecondaryAPIData] = useState("1");
   const [result, setResult] = useState(1);
-  const forexAPI = `http://apilayer.net/api/live?access_key=b7bf0fb87af0b9ef3ff79b78a423f76c&currencies=${filterData}&source=USD&format=1`;
+  const [content, setContent] = useState("");
+  // const [searchWord, setSearchWord] = useState("USD");
+  const [extForex, setExtForex] = useState("");
 
+  const forexAPI = `http://apilayer.net/api/live?access_key=b7bf0fb87af0b9ef3ff79b78a423f76c&currencies=${filterData}&source=USD&format=1`;
   const secondaryForexAPI = `http://apilayer.net/api/live?access_key=b7bf0fb87af0b9ef3ff79b78a423f76c&currencies=${secondaryInput}&source=USD&format=1`;
 
   const sortForex = () => {
@@ -199,12 +202,6 @@ const Forex = (props) => {
   useEffect(() => {
     sortForex();
   }, []);
-
-  const makeApiCall = async () => {
-    const res = await fetch(forexAPI);
-    const rawData = await res.json();
-    setForex(rawData.quotes);
-  };
 
   const emptyArray = [];
 
@@ -239,7 +236,7 @@ const Forex = (props) => {
       const res = await fetch(url);
       const rawData = await res.json();
       setForex(rawData.quotes);
-      console.log(rawData.quotes);
+      // console.log(rawData.quotes);
     };
     // makeApiCall(filterData);
   };
@@ -253,9 +250,19 @@ const Forex = (props) => {
   // console.log(numericalInput);
 
   const handleSecondaryValueChange = (event) => {
-    // console.log(event);
-    const searchWord = event;
-    // console.log(searchWord);
+    // if ((event = NaN)) {
+    //   let searchWord = "United States Dollar";
+    //   const newFilter = Object.keys(forexList).reduce((result, key) => {
+    //     if (forexList[key].name.includes(searchWord)) {
+    //       result = forexList[key].id;
+    //     }
+    //     return result;
+    //   }, "");
+    //   setSecondaryInput(newFilter);
+    //   console.log(newFilter);
+    // } else {
+    let searchWord = event;
+    console.log(searchWord);
     const newFilter = Object.keys(forexList).reduce((result, key) => {
       if (forexList[key].name.includes(searchWord)) {
         result = forexList[key].id;
@@ -276,22 +283,59 @@ const Forex = (props) => {
       setSecondaryAPIData(rawData.quotes);
       console.log(rawData.quotes);
     };
-
-    // console.log(secondaryForexAPI);
-    // makeSecondaryApiCall(secondaryInput);
-    // console.log(rawData.quotes);
   };
+  // console.log(secondaryForexAPI);
+  // makeSecondaryApiCall(secondaryInput);
+  // console.log(rawData.quotes);
 
   const onSubmit = () => {
-    const ratio =
-      (Object.values(secondaryAPIData)[0] / Object.values(forex)[0]) *
-      numericalInput;
-    setResult(ratio);
-    console.log(typeof Object.values(secondaryAPIData)[0]);
-    console.log(ratio);
+    console.log("clicked!");
+    console.log(Object.values(secondaryAPIData)[0]);
+    console.log(secondaryAPIData !== "undefined");
+    console.log(Object.values(forex)[0]);
+
+    if (secondaryAPIData !== "undefined") {
+      console.log(forexAPI);
+      // console.log(Object.values(secondaryAPIData)[0]);
+      setSecondaryAPIData("1");
+      let num1 = parseInt(secondaryAPIData);
+      let num2 = parseInt(numericalInput);
+      let num3 = Object.values(forex)[0];
+      console.log(num3);
+      console.log(num1, num2, num3);
+      const ratio = (num3 / num1) * num2;
+      // console.log(
+      //   (Object.values(forex)[0] / Object.values(secondaryAPIData)[0]) *
+      //     numericalInput
+      // );
+      setResult(ratio);
+      let rounded = result.toFixed(2);
+      console.log(rounded);
+      // console.log(typeof Object.values(extForex)[0]);
+
+      setContent(
+        <p>
+          ${numericalInput} {secondaryInput} = ${rounded} {filterData}
+        </p>
+      );
+      //   } else {
+      //     let num1 = parseInt(secondaryAPIData);
+      //     let num2 = parseInt(numericalInput);
+      //     let num3 = Object.values(forex)[0];
+      //     const ratio = (num1 / num3) * num2;
+      //     setResult(ratio);
+      //     // console.log(typeof Object.values(secondaryAPIData)[0]);
+      //     // console.log(ratio);
+
+      //     setContent(
+      //       <p>
+      //         $ {numericalInput} {filterData} = $ {result} {secondaryInput}
+      //       </p>
+      //     );
+    }
   };
 
-  console.log(result);
+  // console.log(result);
   // <div className="data">
   //   {Object.keys(forexArray).map((key, i) => (
   //     <p key={i}>
@@ -306,7 +350,6 @@ const Forex = (props) => {
 
   return (
     <div>
-      {/* <Commodity forexArray={forexArray} /> */}
       <br />
       <Button size="lg" onClick={onSubmit}>
         Submit
@@ -318,9 +361,7 @@ const Forex = (props) => {
         defaultValue="1"
       ></input>
       <br />
-      <br />
-      <Button size="lg">Swap</Button>
-      <br />
+      {/* <Button size="lg">Swap</Button> */}
       <br />
       <DropdownList
         data={emptyArray}
@@ -329,9 +370,7 @@ const Forex = (props) => {
         // onClick={makeSecondaryApiCall}
       ></DropdownList>
       <br />
-      <div className="result">
-        ${numericalInput} = $ {result}
-      </div>
+      <div className="result">{content}</div>
       <br />
     </div>
   );

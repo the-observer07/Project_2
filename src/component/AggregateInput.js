@@ -76,12 +76,15 @@ const AggregateInput = (props) => {
     <div>
       <div className="int-container">
         <div className="holder">
-          <h1 className="header">Aggregator</h1>
+          <br />
+          <h2 className="header">QUERY YOUR MOONSHOT</h2>
+          <br />
           <DropdownList
             // value={input}
             data={aggregatedArray}
             onChange={handleSearchAggregate}
           />
+          <br />
           {/* <button>Submit</button> */}
           <TokenList id={id} setId={setId} />
           {/* <Forex  /> */}

@@ -70,23 +70,25 @@ const Commodity = (props) => {
     <div>
       <Col>
         <br />
-        <Button onClick={makeApiCall}>Submit</Button>
+        <Button onClick={makeApiCall} size="lg">
+          Submit
+        </Button>
         <br />
         <br />
-        <br />
+        {/* <br /> */}
         <div className="data">{mappedData}</div>
         {/* is propsing down to child (Result component) */}
-
-        <input className="input-value" placeholder="Input value here."></input>
         <br />
-        <br />
-        <br />
-        <DropdownList className="col" data={props.forexArray}></DropdownList>
-        <br />
-        <Button>Swap</Button>
-        <br />
-        <br />
-        <DropdownList className="col" data={props.forexArraywx}></DropdownList>
+        {/* <input className="input-value" placeholder="Input value here."></input> */}
+        {/* <br /> */}
+        {/* <br /> */}
+        {/* <br /> */}
+        {/* <DropdownList className="col" data={props.forexArray}></DropdownList> */}
+        {/* <br /> */}
+        {/* <Button>Swap</Button> */}
+        {/* <br /> */}
+        {/* <br /> */}
+        {/* <DropdownList className="col" data={props.forexArraywx}></DropdownList> */}
       </Col>
     </div>
   );
