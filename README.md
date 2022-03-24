@@ -17,4 +17,4 @@ The packages that you'll need to have to run this project are:
 [React bootstrap](https://react-bootstrap.github.io/getting-started/introduction)
 [Ticker](https://github.com/jeremyrajan/nice-react-ticker)
 
-
+This is still a work in progress, feel free to chip in on it!
