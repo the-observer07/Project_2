@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { DropdownList } from "react-widgets/cjs";
+import { DropdownList, SlideTransitionGroup } from "react-widgets/cjs";
 // import Result from "./Result";
 import AggregateInput from "./AggregateInput";
 import { Button, Container, Row, Col } from "react-bootstrap";
@@ -182,7 +182,7 @@ const Forex = (props) => {
   const [numericalInput, setNumericalInput] = useState("");
   const [secondaryInput, setSecondaryInput] = useState("");
   const [secondaryAPIData, setSecondaryAPIData] = useState("");
-
+  const [result, setResult] = useState(1);
   const forexAPI = `http://apilayer.net/api/live?access_key=b7bf0fb87af0b9ef3ff79b78a423f76c&currencies=${filterData}&source=USD&format=1`;
 
   const secondaryForexAPI = `http://apilayer.net/api/live?access_key=b7bf0fb87af0b9ef3ff79b78a423f76c&currencies=${secondaryInput}&source=USD&format=1`;
@@ -227,20 +227,35 @@ const Forex = (props) => {
       return result;
     }, "");
     setFilterData(newFilter);
+    // console.log(newFilter);
+
+    setTimeout(() => {
+      makeApiCall(newFilter);
+    }, 1000);
+
+    const makeApiCall = async (input) => {
+      const url = `http://apilayer.net/api/live?access_key=b7bf0fb87af0b9ef3ff79b78a423f76c&currencies=${input}&source=USD&format=1`;
+      // console.log(url);
+      const res = await fetch(url);
+      const rawData = await res.json();
+      setForex(rawData.quotes);
+      console.log(rawData.quotes);
+    };
+    // makeApiCall(filterData);
   };
-  console.log(emptyArray);
+  // console.log(emptyArray);
 
   const forexArray = forex;
 
   const handleEventChange = (event) => {
     setNumericalInput(event.target.value);
   };
-  console.log(numericalInput);
+  // console.log(numericalInput);
 
   const handleSecondaryValueChange = (event) => {
-    console.log(event);
+    // console.log(event);
     const searchWord = event;
-    console.log(searchWord);
+    // console.log(searchWord);
     const newFilter = Object.keys(forexList).reduce((result, key) => {
       if (forexList[key].name.includes(searchWord)) {
         result = forexList[key].id;
@@ -248,24 +263,60 @@ const Forex = (props) => {
       return result;
     }, "");
     setSecondaryInput(newFilter);
+    console.log(secondaryInput);
+
+    setTimeout(() => {
+      makeSecondaryApiCall(newFilter);
+    }, 1000);
+
+    const makeSecondaryApiCall = async (input) => {
+      const url = `http://apilayer.net/api/live?access_key=b7bf0fb87af0b9ef3ff79b78a423f76c&currencies=${input}&source=USD&format=1`;
+      const res = await fetch(url);
+      const rawData = await res.json();
+      setSecondaryAPIData(rawData.quotes);
+      console.log(rawData.quotes);
+    };
+
+    // console.log(secondaryForexAPI);
+    // makeSecondaryApiCall(secondaryInput);
+    // console.log(rawData.quotes);
   };
 
-  const handleSubmit = (event) => {};
-
-  const makeSecondaryApiCall = async () => {
-    const res = await fetch(secondaryForexAPI);
-    const rawData = await res.json();
-    setSecondaryAPIData(rawData.quotes);
+  const onSubmit = () => {
+    const ratio =
+      (Object.values(secondaryAPIData)[0] / Object.values(forex)[0]) *
+      numericalInput;
+    setResult(ratio);
+    console.log(typeof Object.values(secondaryAPIData)[0]);
+    console.log(ratio);
   };
+
+  console.log(result);
+  // <div className="data">
+  //   {Object.keys(forexArray).map((key, i) => (
+  //     <p key={i}>
+  //       {/* <span>1USD:{key}</span> */}
+  //       <span>
+  //         ${numericalInput} {secondaryInput} = ${forexArray[key]}
+  //         {filterData}
+  //       </span>
+  //     </p>
+  //   ))}
+  // </div>;
 
   return (
     <div>
       {/* <Commodity forexArray={forexArray} /> */}
       <br />
-      <Button size="lg" onClick={makeApiCall}>
+      <Button size="lg" onClick={onSubmit}>
         Submit
       </Button>{" "}
-      <input placeholder="Input value" onChange={handleEventChange}></input>
+      <input
+        type="number"
+        placeholder="Input value"
+        onChange={handleEventChange}
+        defaultValue="1"
+      ></input>
       <br />
       <br />
       <Button size="lg">Swap</Button>
@@ -275,21 +326,12 @@ const Forex = (props) => {
         data={emptyArray}
         defaultValue="United States Dollar"
         onChange={handleSecondaryValueChange}
-        onClick={handleSubmit}
+        // onClick={makeSecondaryApiCall}
       ></DropdownList>
       <br />
-      <div className="data">
-        {Object.keys(forexArray).map((key, i) => (
-          <p key={i}>
-            {/* <span>1USD:{key}</span> */}
-            <span>
-              ${numericalInput} {secondaryInput} = ${forexArray[key]}
-              {filterData}
-            </span>
-          </p>
-        ))}
+      <div className="result">
+        ${numericalInput} = $ {result}
       </div>
-      <br />
       <br />
     </div>
   );
