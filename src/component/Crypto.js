@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+
 import tokenList from "./TokenListApiData";
 import { Button, Container, Row, Col } from "react-bootstrap";
+// import AggregateInput from "./AggregateInput";
 
 const Crypto = (props) => {
   const [filterData, setFilterData] = useState("");
@@ -15,6 +17,7 @@ const Crypto = (props) => {
 
   const getResults = () => {
     const searchWord = props.searchWord;
+    console.log(searchWord);
     const newFilter = Object.keys(tokenList).reduce((result, key) => {
       if (tokenList[key].name.match(searchWord)) {
         result = tokenList[key].id;
@@ -23,6 +26,7 @@ const Crypto = (props) => {
       return result;
     }, "");
     setFilterData(newFilter);
+    console.log(newFilter);
   };
 
   const makeApiCall = async () => {

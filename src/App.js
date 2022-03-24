@@ -16,7 +16,7 @@ const App = () => {
       <br />
       <br />
       <br />
-      <WatchList />
+      {/* <WatchList /> */}
     </div>
   );
 };

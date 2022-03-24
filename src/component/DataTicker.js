@@ -7,7 +7,7 @@ const DataTicker = () => {
 
   const cryptoApiTicker = "https://api.coingecko.com/api/v3/exchanges/binance";
   const financialNewsTicker =
-    "https://api.marketaux.com/v1/news/all?symbols=TSLA,GME,AMC&filter_entities=true&language=en&api_token=tCXxnvvlVvQUAkFItjmYeycDW7eQEEbw1KhLCZI1";
+    "https://api.marketaux.com/v1/news/all?symbols=TSLA,GME,AMC&filter_entities=true&language=en&api_token=WMIGwTBG1aEbYNV6vYbrBbu8TXB4R0mAXH1Zu5tU";
 
   useEffect(() => {
     fetchFinancialNewsAPI();

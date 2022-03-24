@@ -264,10 +264,11 @@ const Forex = (props) => {
       let num1 = parseInt(secondaryAPIData);
       let num2 = parseInt(numericalInput);
       let num3 = Object.values(forex)[0];
-
+      console.log(num1, num2, num3);
       const ratio = (num3 / num1) * num2;
       setResult(ratio);
-      let rounded = result.toFixed(2);
+      console.log(ratio);
+      let rounded = ratio.toFixed(2);
 
       setContent(
         <p>
@@ -279,17 +280,21 @@ const Forex = (props) => {
 
   return (
     <div>
-      <br />
       <Button size="lg" onClick={onSubmit}>
         Submit
       </Button>{" "}
-      <input
-        type="number"
-        placeholder="Input value"
-        onChange={handleEventChange}
-        defaultValue="1"
-      ></input>
       <br />
+      <br />
+      <div className="value">
+        Value $
+        <input
+          className="inputValue"
+          type="number"
+          placeholder="Input value"
+          onChange={handleEventChange}
+          defaultValue="1"
+        ></input>
+      </div>
       <br />
       <DropdownList
         data={emptyArray}
