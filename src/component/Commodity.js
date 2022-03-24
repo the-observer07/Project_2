@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Container, Row, Col } from "react-bootstrap";
+import { DropdownList } from "react-widgets/cjs";
+import forexList from "./ForexList";
+import Forex from "./Forex";
 
 // import { DropdownList } from "react-widgets/cjs";
 // import Result from "./Result";
@@ -48,29 +51,43 @@ const Commodity = (props) => {
 
   const mappedData = type.map((element, index) => {
     return (
-      <>
-        <div key={index}>
-          USD : ${element.price.USD} {element.unit}
-          <br />
-        </div>
-      </>
+      <div key={index}>
+        USD : ${element.price.USD} {element.unit}
+        <br />
+      </div>
     );
   });
 
+  // console.log(forexList);
+  // const sortNameForex = forexList.map((element, index) => {
+  //   return element.name;
+  // });
+  // console.log(sortNameForex);
+
+  // const sortNameForexArray = [sortNameForex];
+
   return (
     <div>
-      <Container>
-        <Col>
-          <br />
-          <Button variant="dark" onClick={makeApiCall}>
-            Submit
-          </Button>
+      <Col>
+        <br />
+        <Button onClick={makeApiCall}>Submit</Button>
+        <br />
+        <br />
+        <br />
+        <div className="data">{mappedData}</div>
+        {/* is propsing down to child (Result component) */}
 
-          <br />
-          {mappedData}
-          {/* is propsing down to child (Result component) */}
-        </Col>
-      </Container>
+        <input className="input-value" placeholder="Input value here."></input>
+        <br />
+        <br />
+        <br />
+        <DropdownList className="col" data={props.forexArray}></DropdownList>
+        <br />
+        <Button>Swap</Button>
+        <br />
+        <br />
+        <DropdownList className="col" data={props.forexArraywx}></DropdownList>
+      </Col>
     </div>
   );
 };

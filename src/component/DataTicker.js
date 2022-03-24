@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
 import Ticker, { FinancialTicker, NewsTicker } from "nice-react-ticker";
-// import icon from "./news-icon.png";
+import icon from "./news-icon.png";
 // import Ticker from "react-ticker";
 import Bottleneck from "bottleneck";
 // import bootstrap from "bootstrap";
@@ -13,11 +13,11 @@ const DataTicker = () => {
   const [type, setType] = useState("");
   const [newsTitle, setNewsTitle] = useState([]);
 
-  const cryptoApiTicker =
-    "https://api.coingecko.com/api/v3/exchanges/binance/tickers";
+  const cryptoApiTicker = "https://api.coingecko.com/api/v3/exchanges/binance";
   const financialNewsTicker =
-    "https://api.marketaux.com/v1/news/all?symbols=TSLA,AMZN,MSFT,APPL&filter_entities=true&language=en&api_token=HtQPxNVoj5bYyudPypD08TDxD7MdNbMkUB69DXJe";
+    "https://api.marketaux.com/v1/news/all?symbols=TSLA,GME,AMC&filter_entities=true&language=en&api_token=tCXxnvvlVvQUAkFItjmYeycDW7eQEEbw1KhLCZI1";
 
+  // meta="11:10:20"]
   // const limiter = new Bottleneck({
   //   maxConcurrent: 1,
   //   minTime: 5000, // pick a value that makes sense for your use case
@@ -28,70 +28,58 @@ const DataTicker = () => {
   //   const result = await limiter.schedule(() => makeApiCall());
 
   useEffect(() => {
-    fetchCryptoAPI();
     fetchFinancialNewsAPI();
-
-    //   throttledApiCall();
-    //   throttledNewsApiCall();
-    //   // filterData();
+    fetchCryptoAPI();
+    setInterval(() => {
+      fetchCryptoAPI();
+    }, 10000);
   }, []);
 
   const fetchCryptoAPI = async () => {
     const res = await fetch(cryptoApiTicker);
-    // console.log(res);
     const rawData = await res.json();
-    // console.log(rawData);
-    setCryptoData();
-    const filteredData = rawData.tickers.map((element, index) => {
+    let sevenData = rawData.tickers;
+    const firstSeven = sevenData.filter((element, index) => index < 9);
+    const filteredData = firstSeven.map((element, index) => {
       return (
-        <div key={index}>
-          symbol: {element.base}, price: {element.last}, priceBTC:{" "}
-          {element.converted_last.btc},
-        </div>
+        <FinancialTicker
+          id={index}
+          change={true}
+          symbol={element.base}
+          lastPrice={element.converted_last.usd}
+          currentPrice={element.last}
+        />
       );
     });
-    return filteredData;
-    setType(filteredData);
-    console.log(filteredData);
+    setCryptoData(filteredData);
   };
+  // console.log(cryptoData);
 
   const fetchFinancialNewsAPI = async () => {
     const res = await fetch(financialNewsTicker);
     const rawData = await res.json();
-    console.log(rawData.data);
-    const extractTitle = rawData.data.map((duck) => {
-      return {
-        title: duck.title,
-        url: duck.url,
-        imgurl: duck.image_url,
-      };
+    // console.log(rawData.data);
+    const financialMappedData = rawData.data.map((element, index) => {
+      return (
+        <NewsTicker
+          id={index}
+          icon={element.image_url}
+          title={element.title}
+          url={element.url}
+        />
+      );
     });
-    setNewsTitle(extractTitle);
+    setNewsData(financialMappedData);
   };
-  console.log(newsTitle);
 
-  //   const allThePromises = data.map((item) => {
-  //     return throttledApiCall();
-  //   });
-  //   const rawData = await limiter.schedule();
-
-  // const filteredData = rawData.map((element, index) => {
-  //   return {
-  //     symbol: duck.coins.symbol,
-  //     priceBtc: duck.coins.price_btc,
-  //   };
-  // });
-  // setType(filteredData);
-
-  // const filteredData = rawDataArray.map((duck) => {
-  //   return {
-  //     price: duck.data.rates,
-  //     unit: duck.data.unit,
-  //   };
-  // });
-  // setType(filteredData);
-
-  return <div></div>;
+  return (
+    <div>
+      <Ticker className="tickerItemFinancial">{cryptoData}</Ticker>
+      <div className="newsticker">
+        <Ticker isNewsTicker={true}>{newsData}</Ticker>
+      </div>
+    </div>
+  );
 };
 
 export default DataTicker;

@@ -3,6 +3,7 @@ import { DropdownList } from "react-widgets/cjs";
 // import Result from "./Result";
 import AggregateInput from "./AggregateInput";
 import { Button, Container, Row, Col } from "react-bootstrap";
+// import Commodity from "./Commodity";
 
 const forexList = [
   { id: "AED", name: "United Arab Emirates Dirham" },
@@ -177,18 +178,16 @@ const forexList = [
 const Forex = (props) => {
   const [forex, setForex] = useState("");
   const [forexType, setForexType] = useState([]);
-  // const [query, setQuery] = useState("");
-  // const [type, setType] = useState("");
-  // const [currency, setCurrency] = useState("");
   const [filterData, setFilterData] = useState("");
-
-  // console.log(props.aggregatedSearch);
-  // ForexAPI
+  const [numericalInput, setNumericalInput] = useState("");
+  const [secondaryInput, setSecondaryInput] = useState("");
+  const [secondaryAPIData, setSecondaryAPIData] = useState("");
 
   const forexAPI = `http://apilayer.net/api/live?access_key=b7bf0fb87af0b9ef3ff79b78a423f76c&currencies=${filterData}&source=USD&format=1`;
 
+  const secondaryForexAPI = `http://apilayer.net/api/live?access_key=b7bf0fb87af0b9ef3ff79b78a423f76c&currencies=${secondaryInput}&source=USD&format=1`;
+
   const sortForex = () => {
-    // console.log(props.searchWord);
     const sortByName = forexList.map((chicken) => {
       return {
         name: chicken.name,
@@ -196,7 +195,6 @@ const Forex = (props) => {
     });
     setForexType(sortByName);
   };
-  // console.log(forexType);
 
   useEffect(() => {
     sortForex();
@@ -205,45 +203,14 @@ const Forex = (props) => {
   const makeApiCall = async () => {
     const res = await fetch(forexAPI);
     const rawData = await res.json();
-
-    console.log(rawData);
-
-    // const rawDataArray = [rawData];
-
-    // console.log(rawData.quotes);
     setForex(rawData.quotes);
-    // console.log(forex);
-
-    // const array = rawDataArray.map((duck) => {
-    //   return {
-    //     rates: duck.quotes,
-    //   };
-    // });
-    // setQuery(array);
   };
-  // console.log(query);
 
   const emptyArray = [];
 
   const displayName = forexType.map((chicken) => {
     return emptyArray.push(chicken.name);
   });
-
-  console.log(forexAPI);
-
-  // const displayNameArray = [displayName];
-  // console.log(emptyArray);
-
-  // console.log(query); // state with selected currency
-
-  // setQuery(event);
-  // useEffect(() => {
-  //   document.addEventListener("trigger_child", () => doThing());
-
-  //   return () => {
-  //     document.removeEventListener("trigger_child", doThing);
-  //   };
-  // }, []);
 
   useEffect(() => {
     getResults();
@@ -261,82 +228,71 @@ const Forex = (props) => {
     }, "");
     setFilterData(newFilter);
   };
-
-  console.log(filterData);
-
-  // const stringData = filterData.map((element, index) => {
-  //   return `${element}`;
-  // }, "");
-  // };
-  // console.log(filterData);
-
-  // console.log(stringData);
-  // console.log(query);
-
-  // const findId = () => {}; // use query to match forexList
-
-  // twoCalls = (e) => {
-  //   this.functionOne(e);
-  //   this.functionTwo();
-  // };
-
-  // const mappedForexData = .map((element, index) => {
-  //   return (
-  //     <>
-  //       <div key={index}>
-  //         USD: {element.price.USD}
-  //         <br />
-  //         Unit: {element.unit}
-  //       </div>
-  //     </>
-  //   );
-  // });
+  console.log(emptyArray);
 
   const forexArray = forex;
 
+  const handleEventChange = (event) => {
+    setNumericalInput(event.target.value);
+  };
+  console.log(numericalInput);
+
+  const handleSecondaryValueChange = (event) => {
+    console.log(event);
+    const searchWord = event;
+    console.log(searchWord);
+    const newFilter = Object.keys(forexList).reduce((result, key) => {
+      if (forexList[key].name.includes(searchWord)) {
+        result = forexList[key].id;
+      }
+      return result;
+    }, "");
+    setSecondaryInput(newFilter);
+  };
+
+  const handleSubmit = (event) => {};
+
+  const makeSecondaryApiCall = async () => {
+    const res = await fetch(secondaryForexAPI);
+    const rawData = await res.json();
+    setSecondaryAPIData(rawData.quotes);
+  };
+
   return (
     <div>
+      {/* <Commodity forexArray={forexArray} /> */}
       <br />
-      <Button variant="dark" size="lg" onClick={makeApiCall}>
+      <Button size="lg" onClick={makeApiCall}>
         Submit
       </Button>{" "}
-      {Object.keys(forexArray).map((key, i) => (
-        <p key={i}>
-          {/* <span>1USD:{key}</span> */}
-          <span>
-            1 USD : {forexArray[key]}
-            {filterData}
-          </span>
-        </p>
-      ))}
+      <input placeholder="Input value" onChange={handleEventChange}></input>
+      <br />
+      <br />
+      <Button size="lg">Swap</Button>
+      <br />
+      <br />
+      <DropdownList
+        data={emptyArray}
+        defaultValue="United States Dollar"
+        onChange={handleSecondaryValueChange}
+        onClick={handleSubmit}
+      ></DropdownList>
+      <br />
+      <div className="data">
+        {Object.keys(forexArray).map((key, i) => (
+          <p key={i}>
+            {/* <span>1USD:{key}</span> */}
+            <span>
+              ${numericalInput} {secondaryInput} = ${forexArray[key]}
+              {filterData}
+            </span>
+          </p>
+        ))}
+      </div>
+      <br />
+      <br />
     </div>
   );
-
-  // <div>
-  //   <h2>Select a currency</h2>
-  //   <DropdownList
-  //     data={emptyArray}
-  //     // forex={forexList}
-  //     onChange={handleSearchFilter}
-  //     // onChange={(nextValue) => setQuery(nextValue)}
-  //     // onChange={handleSearchFilter}
-  //   />
-  //   <button onClick={makeApiCall}>Submit</button>
-  //   {/* <Result forex={forex} /> */}
-  //   {/* <div>{mappedForexData}</div>; */}
-  // <div>
-  //   {Object.keys(forexArray).map((key, i) => (
-  //     <p key={i}>
-  //       {/* <span>1USD:{key}</span> */}
-  //       <span>
-  //         1 USD : {forexArray[key]}
-  //         {filterData}
-  //       </span>
-  //     </p>
-  //   ))}
-  // </div>;
-  // </div>
-  // );
 };
 
 export default Forex;

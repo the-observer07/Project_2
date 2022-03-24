@@ -24,6 +24,7 @@ const AggregateInput = (props) => {
   const [content, setContent] = useState("");
   const [forexState, setForexState] = useState(false);
   const [cryptoState, setCryptoState] = useState(false);
+  const [input, setInput] = useState("");
   //   console.log(id);
 
   const aggregatedArray = [];
@@ -67,16 +68,17 @@ const AggregateInput = (props) => {
       );
     }
   };
-  //   console.log(aggregatedSearch);
+  //   console.log(event.value);
 
   //   console.log(content);
 
   return (
     <div>
-      <Container>
-        <Col>
-          <h1>Aggreator</h1>
+      <div className="int-container">
+        <div className="holder">
+          <h1 className="header">Aggregator</h1>
           <DropdownList
+            // value={input}
             data={aggregatedArray}
             onChange={handleSearchAggregate}
           />
@@ -84,8 +86,8 @@ const AggregateInput = (props) => {
           <TokenList id={id} setId={setId} />
           {/* <Forex  /> */}
           {content}
-        </Col>
-      </Container>
+        </div>
+      </div>
     </div>
   );
 };

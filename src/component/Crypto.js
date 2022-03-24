@@ -109,18 +109,17 @@ const Crypto = (props) => {
   return (
     <div>
       <br />
-      <br />
-      <div>Token price : ${extractedData}</div>
-      <br />
-
-      {/* <br />
-    <h2>Select a token</h2>
-    <DropdownList data={namesArray} onChange={handleSearchFilter} /> */}
-      <br />
-      <Button variant="dark" onClick={makeApiCall}>
+      <Button
+        variant="dark"
+        className="btn btn-outline-primary"
+        onClick={makeApiCall}
+      >
         Submit
       </Button>
       <br />
+      <br />
+      <br />
+      <div className="data">Token price : ${extractedData}</div>
       {/* <Result type={type} /> */}
     </div>
   );
