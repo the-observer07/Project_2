@@ -6,18 +6,12 @@ import TokenList from "./TokenList";
 import Crypto from "./Crypto";
 import Forex from "./Forex";
 import Commodity from "./Commodity";
-import { Button, Container, Row, Col } from "react-bootstrap";
 
 const AggregateInput = (props) => {
-  //   console.log(commodityList);
-
-  //   console.log(forexList);
-
   const forexNameArray = [];
   const forexName = forexList.map((chicken) => {
     return forexNameArray.push(chicken.name);
   });
-  //   console.log(forexNameArray);
 
   const [id, setId] = useState([]);
   const [aggregatedSearch, setAggregatedSearch] = useState("");
@@ -25,7 +19,6 @@ const AggregateInput = (props) => {
   const [forexState, setForexState] = useState(false);
   const [cryptoState, setCryptoState] = useState(false);
   const [input, setInput] = useState("");
-  //   console.log(id);
 
   const aggregatedArray = [];
 
@@ -44,10 +37,10 @@ const AggregateInput = (props) => {
   const handleSearchAggregate = (event) => {
     const searchWord = event;
 
-    if (commodityList.indexOf(searchWord) != -1) {
+    if (commodityList.indexOf(searchWord) !== -1) {
       setContent(<Commodity commoditySearchWord={searchWord} />);
     } else if (
-      forexList.find((element) => element.name === searchWord) != undefined
+      forexList.find((element) => element.name === searchWord) !== undefined
     ) {
       setContent(
         <Forex
@@ -56,8 +49,6 @@ const AggregateInput = (props) => {
           setForexState={setForexState}
         />
       );
-      //   setState(true);
-      // forex search
     } else {
       setContent(
         <Crypto
@@ -68,9 +59,6 @@ const AggregateInput = (props) => {
       );
     }
   };
-  //   console.log(event.value);
-
-  //   console.log(content);
 
   return (
     <div>
@@ -80,14 +68,11 @@ const AggregateInput = (props) => {
           <h2 className="header">QUERY YOUR MOONSHOT</h2>
           <br />
           <DropdownList
-            // value={input}
             data={aggregatedArray}
             onChange={handleSearchAggregate}
           />
           <br />
-          {/* <button>Submit</button> */}
           <TokenList id={id} setId={setId} />
-          {/* <Forex  /> */}
           {content}
         </div>
       </div>

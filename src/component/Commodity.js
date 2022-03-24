@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Button, Container, Row, Col } from "react-bootstrap";
-import { DropdownList } from "react-widgets/cjs";
-import forexList from "./ForexList";
-import Forex from "./Forex";
-
-// import { DropdownList } from "react-widgets/cjs";
-// import Result from "./Result";
-// import AggregateInput from "./AggregateInput";
 
 //============================================================================================================================================================================================
 
@@ -58,14 +51,6 @@ const Commodity = (props) => {
     );
   });
 
-  // console.log(forexList);
-  // const sortNameForex = forexList.map((element, index) => {
-  //   return element.name;
-  // });
-  // console.log(sortNameForex);
-
-  // const sortNameForexArray = [sortNameForex];
-
   return (
     <div>
       <Col>
@@ -75,7 +60,6 @@ const Commodity = (props) => {
         </Button>
         <br />
         <br />
-        {/* <br /> */}
         <div className="data">{mappedData}</div>
         {/* is propsing down to child (Result component) */}
         <br />
