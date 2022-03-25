@@ -227,6 +227,7 @@ const Forex = (props) => {
       const res = await fetch(url);
       const rawData = await res.json();
       setForex(rawData.quotes);
+      console.log(rawData.quotes);
     };
   };
 
@@ -255,13 +256,15 @@ const Forex = (props) => {
       const res = await fetch(url);
       const rawData = await res.json();
       setSecondaryAPIData(rawData.quotes);
+      console.log(rawData.quotes);
     };
   };
 
   const onSubmit = () => {
     if (secondaryAPIData !== "undefined") {
+      console.log(secondaryAPIData !== "undefined");
       setSecondaryAPIData("1");
-      let num1 = parseInt(secondaryAPIData);
+      let num1 = parseInt("1");
       let num2 = parseInt(numericalInput);
       let num3 = Object.values(forex)[0];
       console.log(num1, num2, num3);
